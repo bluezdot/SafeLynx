@@ -51,10 +51,10 @@ npm run compile
 ### 2. Deploy Contract
 ```bash
 # Deploy lên Sepolia testnet
-npx hardhat run scripts/deploy.ts --network sepolia
+npx hardhat run scripts/deploy-fetch-price.ts --network sepolia
 
 # Deploy lên Base Sepolia
-npx hardhat run scripts/deploy.ts --network baseSepolia
+npx hardhat run scripts/deploy-fetch-price.ts --network baseSepolia
 ```
 
 ### 3. Đăng ký Automation
