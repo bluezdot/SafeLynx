@@ -1,141 +1,181 @@
-# Chainlink Automation Demo - Price Monitoring
+# Chainlink Automation Integration
 
-Dự án demo sử dụng Chainlink Automation để tự động lấy giá ETH tại thời điểm cụ thể và sau 30 phút.
+Dự án này tích hợp Chainlink Automation để tự động hóa các tác vụ blockchain, bao gồm:
 
-## Tính năng
+1. **PriceAutomation**: Tự động lấy giá ETH từ Chainlink Price Feed
+2. **PoolPauseAutomation**: Tự động pause/unpause pool swap dựa trên các điều kiện định nghĩa sẵn
 
-- Tự động lấy giá ETH từ Chainlink Price Feed
-- Lập lịch automation tại thời điểm cụ thể
-- Lưu trữ lịch sử giá trong 30 phút
-- Hỗ trợ nhiều network (Mainnet, Sepolia, Base, Base Sepolia)
+## Cấu trúc Dự án
+
+```
+chainlink-integrator/
+├── contracts/
+│   ├── PriceAutomation.sol          # Contract lấy giá tự động
+│   ├── PoolPauseAutomation.sol      # Contract pause pool tự động
+│   └── mocks/
+│       ├── MockAggregatorV3.sol     # Mock price feed cho test
+│       └── MockPool.sol             # Mock pool cho test
+├── scripts/
+│   ├── deploy.ts                    # Deploy PriceAutomation
+│   ├── deploy-pool-pause.ts         # Deploy PoolPauseAutomation
+│   ├── register-automation.ts       # Register automation
+│   └── start-automation.ts          # Start automation
+├── test/
+│   ├── PriceAutomation.test.ts      # Test PriceAutomation
+│   └── PoolPauseAutomation.test.ts  # Test PoolPauseAutomation
+└── README.md
+```
 
 ## Cài đặt
 
-1. Clone repository và cài đặt dependencies:
 ```bash
-cd chainlink-automation-demo
 npm install
 ```
 
-2. Tạo file `.env` từ `.env.example`:
-```bash
-cp .env.example .env
-```
+## Compile Contracts
 
-3. Cấu hình environment variables trong file `.env`:
-```env
-# Private key của wallet (không có 0x prefix)
-PRIVATE_KEY=your_private_key_here
-
-# RPC URLs
-SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR-PROJECT-ID
-BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
-MAINNET_RPC_URL=https://mainnet.infura.io/v3/YOUR-PROJECT-ID
-BASE_RPC_URL=https://mainnet.base.org
-
-# API Keys cho verification
-ETHERSCAN_API_KEY=your_etherscan_api_key
-BASESCAN_API_KEY=your_basescan_api_key
-
-# Contract address sau khi deploy (sẽ được set sau khi chạy deploy script)
-CONTRACT_ADDRESS=0x...
-```
-
-## Sử dụng
-
-### 1. Compile Contracts
 ```bash
 npm run compile
 ```
 
-### 2. Deploy Contract
+## Test
+
+### Test tất cả contracts
 ```bash
-# Deploy lên Sepolia testnet
-npx hardhat run scripts/deploy-fetch-price.ts --network sepolia
-
-# Deploy lên Base Sepolia
-npx hardhat run scripts/deploy-fetch-price.ts --network baseSepolia
+npm run test
 ```
 
-### 3. Đăng ký Automation
-Sau khi deploy, copy contract address và set vào `.env`:
-```env
-CONTRACT_ADDRESS=0x... # Address từ bước deploy
+### Test chỉ PoolPauseAutomation
+```bash
+npm run test:pool-pause
 ```
 
-Sau đó đăng ký automation:
+## Deploy
+
+### Deploy PriceAutomation
+```bash
+npm run deploy
+```
+
+### Deploy PoolPauseAutomation
+```bash
+npm run deploy:pool-pause
+```
+
+## PoolPauseAutomation
+
+Contract này tự động pause/unpause pool swap dựa trên các điều kiện:
+
+### Điều kiện Pause
+- **Giá**: Khi giá ETH vượt quá ngưỡng min/max
+- **Volume**: Khi volume 24h vượt quá ngưỡng min/max  
+- **Liquidity**: Khi liquidity dưới ngưỡng tối thiểu
+- **Interval**: Kiểm tra mỗi X giây (có thể cấu hình)
+
+### Cấu hình Mặc định
+```javascript
+{
+  minPriceThreshold: "1000",     // $1000 USD
+  maxPriceThreshold: "5000",     // $5000 USD
+  minVolumeThreshold: "100",     // 100 ETH
+  maxVolumeThreshold: "10000",   // 10000 ETH
+  minLiquidityThreshold: "1000", // 1000 ETH
+  checkInterval: 300,            // 5 phút
+  isActive: true
+}
+```
+
+### Tính năng Chính
+
+1. **Access Control**: Chỉ owner có thể cập nhật cấu hình
+2. **Flexible Conditions**: Có thể cập nhật điều kiện pause
+3. **History Tracking**: Lưu lịch sử các lần pause/unpause
+4. **Status Monitoring**: Kiểm tra trạng thái hiện tại
+5. **Automation Control**: Bật/tắt automation
+
+### Functions Chính
+
+```solidity
+// Cập nhật điều kiện pause
+function updateConditions(PauseConditions memory _conditions) external onlyOwner
+
+// Bật/tắt automation
+function toggleAutomation() external onlyOwner
+
+// Cập nhật pool address
+function updatePool(address _pool) external onlyOwner
+
+// Lấy lịch sử pause
+function getPauseHistory() external view returns (PauseEvent[] memory)
+
+// Lấy trạng thái hiện tại
+function getCurrentStatus() external view returns (
+    uint256 price,
+    uint256 volume,
+    uint256 liquidity,
+    bool isPaused,
+    bool shouldPause
+)
+```
+
+## Chainlink Automation
+
+### Register Automation
 ```bash
 npm run register
 ```
 
-**Lưu ý**: Bạn cần có LINK token để đăng ký automation:
-- Sepolia: https://faucets.chain.link/sepolia
-- Base Sepolia: Sử dụng Sepolia LINK
-
-### 4. Bắt đầu Automation
+### Start Automation
 ```bash
 npm run start-automation
 ```
 
-## Cách hoạt động
+## Networks
 
-1. **Contract PriceAutomation**: Smart contract implement Chainlink Automation interface
-2. **checkUpkeep()**: Kiểm tra có cần thực hiện automation không
-3. **performUpkeep()**: Thực hiện lấy giá và lưu vào storage
-4. **Chainlink Automation Network**: Tự động gọi các function trên theo lịch trình
+### Sepolia Testnet
+- **Price Feed**: `0x694AA1769357215DE4FAC081bf1f309aDC325306` (ETH/USD)
+- **Automation Registry**: `0xE16Df59B887e3Caa439E0b29B42bA2e7976FD8b2`
 
-## Cấu trúc Contract
+### Mainnet
+- **Price Feed**: `0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419` (ETH/USD)
+- **Automation Registry**: `0x02777053d6764996e594c3E88AF1D58D5363a2e6`
 
-### PriceAutomation.sol
-- `startAutomation(uint256 _startTime)`: Bắt đầu automation
-- `checkUpkeep()`: Kiểm tra điều kiện thực hiện
-- `performUpkeep()`: Thực hiện lấy giá
-- `getLatestPrice()`: Lấy giá hiện tại
-- `getAllPrices()`: Lấy tất cả giá đã lưu
+## Environment Variables
 
-## Networks được hỗ trợ
+Tạo file `.env` với các biến sau:
 
-| Network | Chain ID | Price Feed | Registry |
-|---------|----------|------------|----------|
-| Mainnet | 1 | ETH/USD | Mainnet Registry |
-| Sepolia | 11155111 | ETH/USD | Sepolia Registry |
-| Base | 8453 | WETH | Mainnet Registry |
-| Base Sepolia | 84532 | WETH | Sepolia Registry |
-
-## Scripts
-
-- `npm run compile`: Compile contracts
-- `npm run deploy`: Deploy contract
-- `npm run register`: Đăng ký automation
-- `npm run start-automation`: Bắt đầu automation
-
-## Monitoring
-
-Sau khi automation được đăng ký, bạn có thể:
-
-1. Theo dõi trên Chainlink Automation UI
-2. Kiểm tra events trong contract
-3. Gọi `getAllPrices()` để xem lịch sử giá
+```env
+PRIVATE_KEY=your_private_key_here
+SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/your_project_id
+ETHERSCAN_API_KEY=your_etherscan_api_key
+```
 
 ## Troubleshooting
 
-### Không đủ LINK
+### Lỗi thường gặp
+
+1. **"AutomationNotActive"**: Automation chưa được bật
+2. **"InvalidConditions"**: Điều kiện pause không hợp lệ
+3. **"Unauthorized"**: Không phải owner
+
+### Debug
+
 ```bash
-# Lấy testnet LINK từ faucet
-# Sepolia: https://faucets.chain.link/sepolia
+# Xem logs chi tiết
+npx hardhat test --verbose
+
+# Test với network cụ thể
+npx hardhat test --network sepolia
 ```
 
-### Contract verification failed
-- Kiểm tra API key trong `.env`
-- Đợi ít nhất 6 block confirmations trước khi verify
+## Contributing
 
-### Automation không chạy
-- Kiểm tra balance LINK trong registry
-- Kiểm tra gas limit có đủ không
-- Xem logs trong Chainlink Automation UI
+1. Fork dự án
+2. Tạo feature branch
+3. Commit changes
+4. Push to branch
+5. Tạo Pull Request
 
-## Liên kết hữu ích
+## License
 
-- [Chainlink Automation Documentation](https://docs.chain.link/chainlink-automation)
-- [Chainlink Price Feeds](https://docs.chain.link/data-feeds/price-feeds)
-- [Hardhat Documentation](https://hardhat.org/docs)
+MIT License

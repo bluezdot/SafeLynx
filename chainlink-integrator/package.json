@@ -5,14 +5,16 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
+    "test:pool-pause": "hardhat test test/PoolPauseAutomation.test.ts",
     "deploy": "hardhat run scripts/deploy-fetch-price.ts",
+    "deploy:pool-pause": "hardhat run scripts/deploy-pool-pause.ts",
     "register": "hardhat run scripts/register-automation.ts",
     "start-automation": "hardhat run scripts/start-automation.ts"
   },
-  "keywords": ["chainlink", "automation", "price-feed"],
+  "keywords": ["chainlink", "automation", "price-feed", "pool-pause"],
   "author": "",
   "license": "ISC",
-  "description": "Chainlink Automation demo for price monitoring",
+  "description": "Chainlink Automation demo for price monitoring and pool pause automation",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@chainlink/contracts": "^0.8.0",
