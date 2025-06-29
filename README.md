@@ -79,65 +79,110 @@ yarn compile
 yarn deploy
 ```
 
-## 🛠️ Technology Stack
+[//]: # (## 🛠️ Technology Stack)
 
-### Frontend
-- **React 18** - Modern UI framework
-- **TypeScript** - Type-safe development
-- **Vite** - Fast build tool
-- **Tailwind CSS** - Utility-first styling
-- **Radix UI** - Accessible components
-- **Wagmi** - React hooks for Ethereum
-- **Viem** - TypeScript interface for Ethereum
+[//]: # ()
+[//]: # (### Frontend)
 
-### Backend & Infrastructure
-- **Ponder** - Blockchain indexing framework
-- **PostgreSQL** - Database
-- **GraphQL** - API layer
-- **Docker** - Containerization
-- **Base Network** - L2 scaling solution
+[//]: # (- **React 18** - Modern UI framework)
 
-### Smart Contracts & Automation
-- **Doppler V3 SDK** - Liquidity bootstrapping
-- **Chainlink Automation** - Decentralized automation
-- **Uniswap V2/V3/V4** - DEX integration
-- **Solidity** - Smart contract language
+[//]: # (- **TypeScript** - Type-safe development)
 
-## 🎮 Demo & Usage
+[//]: # (- **Vite** - Fast build tool)
 
-### Deploying a New Token
+[//]: # (- **Tailwind CSS** - Utility-first styling)
 
-1. **Navigate to Deploy Page**
-   - Visit `/deploy` in the application
-   - Connect your wallet
+[//]: # (- **Radix UI** - Accessible components)
 
-2. **Configure Token Parameters**
-   - Token name and symbol
-   - Initial supply and distribution
-   - Liquidity parameters
-   - Advanced options (tick spacing, positions)
+[//]: # (- **Wagmi** - React hooks for Ethereum)
 
-3. **Launch Token**
-   - Review configuration
-   - Confirm transaction
-   - Monitor deployment progress
+[//]: # (- **Viem** - TypeScript interface for Ethereum)
 
-### Trading & Liquidity Management
+[//]: # ()
+[//]: # (### Backend & Infrastructure)
 
-1. **View Token Details**
-   - Navigate to `/doppler-v2/:tokenAddress`
-   - View real-time price charts
-   - Check liquidity distribution
+[//]: # (- **Ponder** - Blockchain indexing framework)
 
-2. **Execute Trades**
-   - Buy/sell tokens
-   - Set slippage tolerance
-   - Confirm transactions
+[//]: # (- **PostgreSQL** - Database)
 
-3. **Manage Liquidity**
-   - Add/remove liquidity
-   - Monitor positions
-   - View rewards
+[//]: # (- **GraphQL** - API layer)
+
+[//]: # (- **Docker** - Containerization)
+
+[//]: # (- **Base Network** - L2 scaling solution)
+
+[//]: # ()
+[//]: # (### Smart Contracts & Automation)
+
+[//]: # (- **Doppler V3 SDK** - Liquidity bootstrapping)
+
+[//]: # (- **Chainlink Automation** - Decentralized automation)
+
+[//]: # (- **Uniswap V2/V3/V4** - DEX integration)
+
+[//]: # (- **Solidity** - Smart contract language)
+
+[//]: # (## 🎮 Demo & Usage)
+
+[//]: # ()
+[//]: # (### Deploying a New Token)
+
+[//]: # ()
+[//]: # (1. **Navigate to Deploy Page**)
+
+[//]: # (   - Visit `/deploy` in the application)
+
+[//]: # (   - Connect your wallet)
+
+[//]: # ()
+[//]: # (2. **Configure Token Parameters**)
+
+[//]: # (   - Token name and symbol)
+
+[//]: # (   - Initial supply and distribution)
+
+[//]: # (   - Liquidity parameters)
+
+[//]: # (   - Advanced options &#40;tick spacing, positions&#41;)
+
+[//]: # ()
+[//]: # (3. **Launch Token**)
+
+[//]: # (   - Review configuration)
+
+[//]: # (   - Confirm transaction)
+
+[//]: # (   - Monitor deployment progress)
+
+[//]: # ()
+[//]: # (### Trading & Liquidity Management)
+
+[//]: # ()
+[//]: # (1. **View Token Details**)
+
+[//]: # (   - Navigate to `/doppler-v2/:tokenAddress`)
+
+[//]: # (   - View real-time price charts)
+
+[//]: # (   - Check liquidity distribution)
+
+[//]: # ()
+[//]: # (2. **Execute Trades**)
+
+[//]: # (   - Buy/sell tokens)
+
+[//]: # (   - Set slippage tolerance)
+
+[//]: # (   - Confirm transactions)
+
+[//]: # ()
+[//]: # (3. **Manage Liquidity**)
+
+[//]: # (   - Add/remove liquidity)
+
+[//]: # (   - Monitor positions)
+
+[//]: # (   - View rewards)
 
 ## 🔧 Development
 
@@ -165,24 +210,38 @@ SafeLynx/
     └── test/                # Test files
 ```
 
-### Available Scripts
+[//]: # (### Available Scripts)
 
-```bash
-# Frontend (sl-app)
-yarn dev          # Start development server
-yarn build        # Build for production
-yarn lint         # Run linter
+[//]: # ()
+[//]: # (```bash)
 
-# Indexer (sl-indexer)
-yarn dev          # Start indexer
-yarn start        # Start production indexer
-yarn db           # Database operations
+[//]: # (# Frontend &#40;sl-app&#41;)
 
-# Smart Contracts (chainlink-integrator)
-yarn compile      # Compile contracts
-yarn test         # Run tests
-yarn deploy       # Deploy contracts
-```
+[//]: # (yarn dev          # Start development server)
+
+[//]: # (yarn build        # Build for production)
+
+[//]: # (yarn lint         # Run linter)
+
+[//]: # ()
+[//]: # (# Indexer &#40;sl-indexer&#41;)
+
+[//]: # (yarn dev          # Start indexer)
+
+[//]: # (yarn start        # Start production indexer)
+
+[//]: # (yarn db           # Database operations)
+
+[//]: # ()
+[//]: # (# Smart Contracts &#40;chainlink-integrator&#41;)
+
+[//]: # (yarn compile      # Compile contracts)
+
+[//]: # (yarn test         # Run tests)
+
+[//]: # (yarn deploy       # Deploy contracts)
+
+[//]: # (```)
 
 ## 🔒 Security Features
 
@@ -195,41 +254,13 @@ yarn deploy       # Deploy contracts
 ## 🌐 Network Support
 
 - **Base Sepolia** (Testnet) - Primary development network
-- **Base Mainnet** - Production deployment
-- **Ethereum Mainnet** - Full compatibility
-- **Unichain** - Cross-chain support
-
-## 📊 Performance Metrics
-
-- **Transaction Speed**: < 2 seconds on Base
-- **Gas Efficiency**: 90% reduction vs Ethereum mainnet
-- **Uptime**: 99.9% availability
-- **Scalability**: Support for 1000+ concurrent users
+- **Base Mainnet** - Full compatibility (Coming soon)
+- **Ethereum Mainnet** - Full compatibility (Coming soon)
+- **Unichain** - Full compatibility (Coming soon)
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-### Development Setup
-
-```bash
-# Fork and clone the repository
-git clone https://github.com/your-username/SafeLynx.git
-
-# Create a feature branch
-git checkout -b feature/amazing-feature
-
-# Make your changes
-# Add tests if applicable
-
-# Commit your changes
-git commit -m 'Add amazing feature'
-
-# Push to the branch
-git push origin feature/amazing-feature
-
-# Open a Pull Request
-```
+We welcome contributions! Please create an issue and tag @bluezdot or @luthebao.
 
 ## 📄 License
 
@@ -251,7 +282,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🏆 Hackathon Submission
 
-This project was built for **[Hackathon Name]** with the goal of revolutionizing DeFi token launching and liquidity management. We believe in the power of decentralized finance to democratize access to financial services and create more inclusive economic systems.
+This project was built for **Chromion: A Chainlink Hackathon** with the goal of revolutionizing DeFi token launching and liquidity management. We believe in the power of decentralized finance to democratize access to financial services and create more inclusive economic systems.
 
 ### 🎯 Problem Statement
 
