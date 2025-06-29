@@ -253,7 +253,7 @@ SafeLynx/
 
 ## 🌐 Network Support
 
-- **Base Sepolia** (Testnet) - Primary development network
+- **Base Sepolia** - Primary development network
 - **Base Mainnet** - Full compatibility (Coming soon)
 - **Ethereum Mainnet** - Full compatibility (Coming soon)
 - **Unichain** - Full compatibility (Coming soon)
