@@ -3,11 +3,11 @@ import { ethers } from "hardhat";
 async function main() {
   console.log("🚀 Deploying PriceAutomation contract...");
 
-  // Lấy signer
+  // Get signer
   const [deployer] = await ethers.getSigners();
   console.log("📝 Deploying with account:", deployer.address);
 
-  // Địa chỉ Uniswap V2 Factory và WETH trên Base Sepolia
+  // Uniswap V2 Factory and WETH addresses on Base Sepolia
   const UNISWAP_V2_FACTORY = "0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6"; // Base Sepolia Uniswap V2 Factory
   const WETH = "0x4200000000000000000000000000000000000006"; // Base Sepolia WETH
 
@@ -26,7 +26,7 @@ async function main() {
   console.log("💎 WETH:", WETH);
   console.log("📊 Token: Not set (use setToken() to set)");
 
-  // Verify contract trên Basescan (nếu cần)
+  // Verify contract on Basescan (if needed)
   console.log("\n🔍 Verifying contract on Basescan...");
   try {
     await run("verify:verify", {
@@ -41,7 +41,7 @@ async function main() {
     console.log("⚠️  Verification failed:", error);
   }
 
-  // Lưu thông tin deploy
+  // Save deploy information
   const deployInfo = {
     contractAddress,
     factory: UNISWAP_V2_FACTORY,
@@ -65,7 +65,7 @@ async function main() {
   };
 }
 
-// Chạy script
+// Run script
 main()
   .then(() => process.exit(0))
   .catch((error) => {

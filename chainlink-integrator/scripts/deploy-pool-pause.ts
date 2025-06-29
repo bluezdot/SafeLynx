@@ -4,24 +4,24 @@ import { PoolPauseAutomationABI } from "../PoolPauseAutomationABI";
 async function main() {
   console.log("🚀 Deploying PoolPauseAutomation contract...");
 
-  // Lấy signer
+  // Get signer
   const [deployer] = await ethers.getSigners();
   console.log("📝 Deploying with account:", deployer.address);
 
-  // Địa chỉ Chainlink Price Feed cho ETH/USD trên Base Sepolia
+  // Chainlink Price Feed for ETH/USD on Base Sepolia
   const ETH_USD_PRICE_FEED = "0x4aDC67696bA383c43E60E1154C7d5e5c3c243d2c"; // Base Sepolia ETH/USD
   
-  // Địa chỉ pool (cần thay đổi theo pool thực tế)
+  // Pool address (need to change according to actual pool)
   const POOL_ADDRESS = "0x0000000000000000000000000000000000000000"; // Placeholder
   
-  // Cấu hình điều kiện pause mặc định
+  // Default pause condition configuration
   const defaultConditions = {
     minPriceThreshold: ethers.parseEther("1000"),    // $1000 USD
     maxPriceThreshold: ethers.parseEther("5000"),    // $5000 USD
     minVolumeThreshold: ethers.parseEther("100"),    // 100 ETH
     maxVolumeThreshold: ethers.parseEther("10000"),  // 10000 ETH
     minLiquidityThreshold: ethers.parseEther("1000"), // 1000 ETH
-    checkInterval: 300, // 5 phút
+    checkInterval: 300, // 5 minutes
     isActive: true
   };
 
@@ -47,7 +47,7 @@ async function main() {
   console.log("   - Min Liquidity: 1000 ETH");
   console.log("   - Check Interval: 5 minutes");
 
-  // Verify contract trên Basescan (nếu cần)
+  // Verify contract on Basescan (if needed)
   console.log("\n🔍 Verifying contract on Basescan...");
   try {
     await run("verify:verify", {
@@ -63,7 +63,7 @@ async function main() {
     console.log("⚠️  Verification failed:", error);
   }
 
-  // Lưu thông tin deploy
+  // Save deploy information
   const deployInfo = {
     contractAddress,
     priceFeed: ETH_USD_PRICE_FEED,
@@ -83,7 +83,7 @@ async function main() {
   };
 }
 
-// Chạy script
+// Run script
 main()
   .then(() => process.exit(0))
   .catch((error) => {

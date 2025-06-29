@@ -3,15 +3,15 @@ import { ethers } from "hardhat";
 async function main() {
   console.log("🔧 Setting token and starting automation...");
 
-  // Lấy signer
+  // Get signer
   const [deployer] = await ethers.getSigners();
   console.log("📝 Using account:", deployer.address);
 
-  // Contract address (cần thay đổi sau khi deploy)
-  const CONTRACT_ADDRESS = "0x..."; // Thay bằng address thực tế
-  const TOKEN_ADDRESS = "0x..."; // Thay bằng token address thực tế
+  // Contract address (need to change after deployment)
+  const CONTRACT_ADDRESS = "0x..."; // Replace with actual address
+  const TOKEN_ADDRESS = "0x..."; // Replace with actual token address
 
-  // Lấy contract instance
+  // Get contract instance
   const PriceAutomation = await ethers.getContractFactory("PriceAutomation");
   const priceAutomation = PriceAutomation.attach(CONTRACT_ADDRESS);
 
@@ -25,7 +25,7 @@ async function main() {
     await setTokenTx.wait();
     console.log("✅ Token set successfully");
 
-    // Kiểm tra pool info
+    // Check pool info
     console.log("\n📊 Getting pool info...");
     const poolInfo = await priceAutomation.getPoolInfo();
     console.log("🏊 Pool address:", poolInfo.pool);
@@ -33,8 +33,8 @@ async function main() {
     console.log("💎 WETH reserve:", ethers.formatEther(poolInfo.wethReserve));
     console.log("💰 Current price:", ethers.formatEther(poolInfo.price), "WETH per token");
 
-    // Tính thời gian bắt đầu (5 phút từ bây giờ)
-    const startTime = Math.floor(Date.now() / 1000) + 300; // 5 phút
+    // Calculate start time (5 minutes from now)
+    const startTime = Math.floor(Date.now() / 1000) + 300; // 5 minutes
     console.log("\n⏰ Start time:", new Date(startTime * 1000).toISOString());
 
     // Start automation
@@ -43,7 +43,7 @@ async function main() {
     await startTx.wait();
     console.log("✅ Automation started successfully");
 
-    // Kiểm tra trạng thái
+    // Check status
     console.log("\n📋 Automation status:");
     console.log("Active:", await priceAutomation.isActive());
     console.log("Start time:", await priceAutomation.startTime());
@@ -67,7 +67,7 @@ async function main() {
   }
 }
 
-// Chạy script
+// Run script
 main()
   .then(() => process.exit(0))
   .catch((error) => {

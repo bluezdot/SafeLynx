@@ -7,13 +7,13 @@ import "@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
 
 /**
  * @title PoolPauseAutomation
- * @dev Contract để tự động pause pool swap dựa trên các điều kiện giá và volume
+ * @dev Contract to automatically pause pool swap based on price and volume conditions
  */
 contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
-    // Chainlink Price Feed cho ETH/USD
+    // Chainlink Price Feed for ETH/USD
     AggregatorV3Interface public immutable priceFeed;
     
-    // Pool interface (giả định có interface pause)
+    // Pool interface (assumed to have pause interface)
     interface IPool {
         function pause() external;
         function unpause() external;
@@ -25,20 +25,20 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     // Pool address
     IPool public pool;
     
-    // Cấu hình điều kiện pause
+    // Pause condition configuration
     struct PauseConditions {
-        uint256 minPriceThreshold;    // Giá tối thiểu để pause (wei)
-        uint256 maxPriceThreshold;    // Giá tối đa để pause (wei)
-        uint256 minVolumeThreshold;   // Volume tối thiểu để pause
-        uint256 maxVolumeThreshold;   // Volume tối đa để pause
-        uint256 minLiquidityThreshold; // Liquidity tối thiểu để pause
-        uint256 checkInterval;        // Khoảng thời gian giữa các lần check (giây)
-        bool isActive;                // Trạng thái automation
+        uint256 minPriceThreshold;    // Minimum price threshold to pause (wei)
+        uint256 maxPriceThreshold;    // Maximum price threshold to pause (wei)
+        uint256 minVolumeThreshold;   // Minimum volume threshold to pause
+        uint256 maxVolumeThreshold;   // Maximum volume threshold to pause
+        uint256 minLiquidityThreshold; // Minimum liquidity threshold to pause
+        uint256 checkInterval;        // Time interval between checks (seconds)
+        bool isActive;                // Automation status
     }
     
     PauseConditions public conditions;
     
-    // Lịch sử pause
+    // Pause history
     struct PauseEvent {
         uint256 timestamp;
         uint256 price;
@@ -75,7 +75,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Cập nhật điều kiện pause
+     * @dev Update pause conditions
      */
     function updateConditions(PauseConditions memory _conditions) external onlyOwner {
         _validateConditions(_conditions);
@@ -84,7 +84,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Bật/tắt automation
+     * @dev Toggle automation on/off
      */
     function toggleAutomation() external onlyOwner {
         conditions.isActive = !conditions.isActive;
@@ -96,7 +96,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Cập nhật pool address
+     * @dev Update pool address
      */
     function updatePool(address _pool) external onlyOwner {
         pool = IPool(_pool);
@@ -110,19 +110,19 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     ) external view override returns (bool upkeepNeeded, bytes memory performData) {
         if (!conditions.isActive) return (false, "");
         
-        // Kiểm tra interval
+        // Check interval
         if (block.timestamp % conditions.checkInterval != 0) {
             return (false, "");
         }
         
-        // Lấy dữ liệu hiện tại
+        // Get current data
         (, int256 price, , , ) = priceFeed.latestRoundData();
         uint256 currentPrice = uint256(price);
         uint256 currentVolume = pool.getVolume24h();
         uint256 currentLiquidity = pool.getLiquidity();
         bool isCurrentlyPaused = pool.isPaused();
         
-        // Kiểm tra điều kiện pause
+        // Check pause conditions
         bool shouldPause = _shouldPause(currentPrice, currentVolume, currentLiquidity);
         bool shouldUnpause = _shouldUnpause(currentPrice, currentVolume, currentLiquidity);
         
@@ -155,7 +155,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Kiểm tra xem có nên pause không
+     * @dev Check if should pause
      */
     function _shouldPause(
         uint256 price,
@@ -172,7 +172,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Kiểm tra xem có nên unpause không
+     * @dev Check if should unpause
      */
     function _shouldUnpause(
         uint256 price,
@@ -189,7 +189,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Lấy lý do pause
+     * @dev Get pause reason
      */
     function _getPauseReason(
         uint256 price,
@@ -205,7 +205,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Ghi lại sự kiện pause
+     * @dev Record pause event
      */
     function _recordPauseEvent(
         uint256 price,
@@ -225,7 +225,7 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Validate điều kiện
+     * @dev Validate conditions
      */
     function _validateConditions(PauseConditions memory _conditions) internal pure {
         if (_conditions.minPriceThreshold >= _conditions.maxPriceThreshold) {
@@ -240,14 +240,14 @@ contract PoolPauseAutomation is AutomationCompatible, ConfirmedOwner {
     }
     
     /**
-     * @dev Lấy lịch sử pause
+     * @dev Get pause history
      */
     function getPauseHistory() external view returns (PauseEvent[] memory) {
         return pauseHistory;
     }
     
     /**
-     * @dev Lấy thông tin hiện tại
+     * @dev Get current status
      */
     function getCurrentStatus() external view returns (
         uint256 price,

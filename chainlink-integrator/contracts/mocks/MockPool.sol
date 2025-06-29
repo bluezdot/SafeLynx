@@ -3,7 +3,7 @@ pragma solidity ^0.8.19;
 
 /**
  * @title MockPool
- * @dev Mock contract để test Pool interface
+ * @dev Mock contract for testing Pool interface
  */
 contract MockPool {
     bool private _isPaused = false;

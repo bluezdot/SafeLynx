@@ -5,7 +5,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 /**
  * @title MockAggregatorV3
- * @dev Mock contract để test Chainlink Price Feed
+ * @dev Mock contract for testing Chainlink Price Feed
  */
 contract MockAggregatorV3 is AggregatorV3Interface {
     int256 private _price;

@@ -8,28 +8,28 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**
  * @title PriceAutomation
- * @dev Contract để tự động lấy giá token từ Uniswap pool
+ * @dev Contract to automatically fetch token price from Uniswap pool
  */
 contract PriceAutomation is AutomationCompatible {
-    // Uniswap V2 Factory để tìm pool
+    // Uniswap V2 Factory to find pool
     IUniswapV2Factory public immutable factory;
     
     // WETH address
     address public immutable WETH;
     
-    // Token address để theo dõi giá
+    // Token address to monitor price
     address public token;
     
-    // Thời gian bắt đầu automation (Unix timestamp)
+    // Automation start time (Unix timestamp)
     uint256 public startTime;
     
-    // Thời gian kết thúc (30 phút sau startTime)
+    // End time (30 minutes after startTime)
     uint256 public endTime;
     
-    // Trạng thái automation
+    // Automation status
     bool public isActive;
     
-    // Lưu trữ giá (timestamp => price)
+    // Price storage (timestamp => price)
     mapping(uint256 => uint256) public priceHistory;
     uint256[] public timestamps;
     
@@ -52,8 +52,8 @@ contract PriceAutomation is AutomationCompatible {
     }
     
     /**
-     * @dev Cập nhật token để theo dõi giá
-     * @param _token Địa chỉ token cần theo dõi
+     * @dev Update token to monitor price
+     * @param _token Token address to monitor
      */
     function setToken(address _token) external {
         if (_token == address(0)) revert InvalidToken();
@@ -61,7 +61,7 @@ contract PriceAutomation is AutomationCompatible {
         address oldToken = token;
         token = _token;
         
-        // Kiểm tra pool tồn tại
+        // Check if pool exists
         address pool = factory.getPair(_token, WETH);
         if (pool == address(0)) revert PoolNotFound();
         
@@ -69,8 +69,8 @@ contract PriceAutomation is AutomationCompatible {
     }
     
     /**
-     * @dev Bắt đầu automation với thời gian cụ thể
-     * @param _startTime Thời gian bắt đầu (Unix timestamp)
+     * @dev Start automation with specific time
+     * @param _startTime Start time (Unix timestamp)
      */
     function startAutomation(uint256 _startTime) external {
         if (isActive) revert AutomationAlreadyStarted();
@@ -78,14 +78,14 @@ contract PriceAutomation is AutomationCompatible {
         if (token == address(0)) revert InvalidToken();
         
         startTime = _startTime;
-        endTime = _startTime + 30 minutes; // 30 phút sau
+        endTime = _startTime + 30 minutes; // 30 minutes after
         isActive = true;
         
         emit AutomationStarted(startTime, endTime, token);
     }
     
     /**
-     * @dev Chainlink Automation sẽ gọi function này để kiểm tra có cần thực hiện không
+     * @dev Chainlink Automation will call this function to check if execution is needed
      */
     function checkUpkeep(
         bytes calldata /* checkData */
@@ -94,14 +94,14 @@ contract PriceAutomation is AutomationCompatible {
         
         uint256 currentTime = block.timestamp;
         
-        // Nếu đã qua thời gian kết thúc, cần thực hiện để dừng automation
+        // If past end time, need to execute to stop automation
         if (currentTime > endTime) {
             return (true, "");
         }
         
-        // Kiểm tra nếu đã đến thời gian bắt đầu và chưa qua thời gian kết thúc
+        // Check if reached start time and not past end time
         if (currentTime >= startTime && currentTime <= endTime) {
-            // Chỉ lấy giá mỗi 5 phút để tránh spam
+            // Only fetch price every 5 minutes to avoid spam
             if (currentTime % 300 == 0) {
                 return (true, "");
             }
@@ -111,24 +111,24 @@ contract PriceAutomation is AutomationCompatible {
     }
     
     /**
-     * @dev Chainlink Automation sẽ gọi function này để thực hiện automation
+     * @dev Chainlink Automation will call this function to execute automation
      */
     function performUpkeep(bytes calldata /* performData */) external override {
         if (!isActive) revert AutomationNotActive();
         
         uint256 currentTime = block.timestamp;
         
-        // Nếu đã qua thời gian kết thúc, dừng automation
+        // If past end time, stop automation
         if (currentTime > endTime) {
             isActive = false;
             emit AutomationCompleted();
             return;
         }
         
-        // Lấy giá hiện tại từ Uniswap pool
+        // Get current price from Uniswap pool
         uint256 price = _getTokenPrice();
         
-        // Lưu giá vào history
+        // Save price to history
         priceHistory[currentTime] = price;
         timestamps.push(currentTime);
         
@@ -136,7 +136,7 @@ contract PriceAutomation is AutomationCompatible {
     }
     
     /**
-     * @dev Lấy giá token từ Uniswap pool (price in WETH)
+     * @dev Get token price from Uniswap pool (price in WETH)
      */
     function _getTokenPrice() internal view returns (uint256) {
         address pool = factory.getPair(token, WETH);
@@ -144,10 +144,10 @@ contract PriceAutomation is AutomationCompatible {
         
         IUniswapV2Pair pair = IUniswapV2Pair(pool);
         
-        // Lấy reserves
+        // Get reserves
         (uint112 reserve0, uint112 reserve1,) = pair.getReserves();
         
-        // Xác định token0 và token1
+        // Determine token0 and token1
         address token0 = pair.token0();
         
         uint256 tokenReserve;
@@ -161,26 +161,26 @@ contract PriceAutomation is AutomationCompatible {
             wethReserve = reserve0;
         }
         
-        // Tính giá: WETH / Token
+        // Calculate price: WETH / Token
         if (tokenReserve == 0) return 0;
         
-        // Lấy decimals của token
+        // Get token decimals
         uint8 tokenDecimals = IERC20(token).decimals();
         uint8 wethDecimals = IERC20(WETH).decimals();
         
-        // Tính giá với precision cao
+        // Calculate price with high precision
         return (wethReserve * (10 ** tokenDecimals)) / tokenReserve;
     }
     
     /**
-     * @dev Lấy giá hiện tại từ Uniswap pool
+     * @dev Get current price from Uniswap pool
      */
     function getCurrentPrice() external view returns (uint256) {
         return _getTokenPrice();
     }
     
     /**
-     * @dev Lấy thông tin pool
+     * @dev Get pool information
      */
     function getPoolInfo() external view returns (
         address pool,
@@ -208,7 +208,7 @@ contract PriceAutomation is AutomationCompatible {
     }
     
     /**
-     * @dev Lấy tất cả giá đã được ghi lại
+     * @dev Get all recorded prices
      */
     function getAllPrices() external view returns (uint256[] memory timestampsArray, uint256[] memory prices) {
         timestampsArray = timestamps;
@@ -220,21 +220,21 @@ contract PriceAutomation is AutomationCompatible {
     }
     
     /**
-     * @dev Lấy giá tại timestamp cụ thể
+     * @dev Get price at specific timestamp
      */
     function getPriceAt(uint256 timestamp) external view returns (uint256) {
         return priceHistory[timestamp];
     }
     
     /**
-     * @dev Lấy số lượng giá đã ghi
+     * @dev Get number of recorded prices
      */
     function getPriceCount() external view returns (uint256) {
         return timestamps.length;
     }
     
     /**
-     * @dev Dừng automation
+     * @dev Stop automation
      */
     function stopAutomation() external {
         isActive = false;
