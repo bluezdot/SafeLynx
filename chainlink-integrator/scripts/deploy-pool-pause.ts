@@ -8,8 +8,8 @@ async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("📝 Deploying with account:", deployer.address);
 
-  // Địa chỉ Chainlink Price Feed cho ETH/USD trên Sepolia
-  const ETH_USD_PRICE_FEED = "0x694AA1769357215DE4FAC081bf1f309aDC325306"; // Sepolia ETH/USD
+  // Địa chỉ Chainlink Price Feed cho ETH/USD trên Base Sepolia
+  const ETH_USD_PRICE_FEED = "0x4aDC67696bA383c43E60E1154C7d5e5c3c243d2c"; // Base Sepolia ETH/USD
   
   // Địa chỉ pool (cần thay đổi theo pool thực tế)
   const POOL_ADDRESS = "0x0000000000000000000000000000000000000000"; // Placeholder
@@ -47,8 +47,8 @@ async function main() {
   console.log("   - Min Liquidity: 1000 ETH");
   console.log("   - Check Interval: 5 minutes");
 
-  // Verify contract trên Etherscan (nếu cần)
-  console.log("\n🔍 Verifying contract on Etherscan...");
+  // Verify contract trên Basescan (nếu cần)
+  console.log("\n🔍 Verifying contract on Basescan...");
   try {
     await run("verify:verify", {
       address: contractAddress,
@@ -58,7 +58,7 @@ async function main() {
         defaultConditions
       ],
     });
-    console.log("✅ Contract verified on Etherscan");
+    console.log("✅ Contract verified on Basescan");
   } catch (error) {
     console.log("⚠️  Verification failed:", error);
   }

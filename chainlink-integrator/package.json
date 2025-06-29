@@ -6,15 +6,17 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "test:pool-pause": "hardhat test test/PoolPauseAutomation.test.ts",
-    "deploy": "hardhat run scripts/deploy-fetch-price.ts",
-    "deploy:pool-pause": "hardhat run scripts/deploy-pool-pause.ts",
-    "register": "hardhat run scripts/register-automation.ts",
-    "start-automation": "hardhat run scripts/start-automation.ts"
+    "deploy": "hardhat run scripts/deploy.ts --network baseSepolia",
+    "deploy:pool-pause": "hardhat run scripts/deploy-pool-pause.ts --network baseSepolia",
+    "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia",
+    "deploy:pool-pause:sepolia": "hardhat run scripts/deploy-pool-pause.ts --network sepolia",
+    "register": "hardhat run scripts/register-automation.ts --network baseSepolia",
+    "start-automation": "hardhat run scripts/start-automation.ts --network baseSepolia"
   },
-  "keywords": ["chainlink", "automation", "price-feed", "pool-pause"],
+  "keywords": ["chainlink", "automation", "price-feed", "pool-pause", "uniswap", "base"],
   "author": "",
   "license": "ISC",
-  "description": "Chainlink Automation demo for price monitoring and pool pause automation",
+  "description": "Chainlink Automation demo for price monitoring and pool pause automation on Base",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@chainlink/contracts": "^0.8.0",
@@ -24,6 +26,8 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "@uniswap/v2-core": "^1.0.1",
     "dotenv": "^16.0.0"
   }
 }
