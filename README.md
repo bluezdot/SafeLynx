@@ -1,6 +1,6 @@
-# 🚀 SafeLynx - Decentralized Token Launchpad & Liquidity Management
+# 🚀 SafeLynx - Decentralized Token Launchpad with anti-rug mechanism
 
-> **Revolutionizing DeFi with AI-Powered Token Launching and Automated Liquidity Management**
+> **Revolutionizing DeFi on @base with anti-rug mechanism**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -9,12 +9,12 @@
 
 ## 🎯 Project Overview
 
-SafeLynx is a comprehensive DeFi platform that combines the power of Doppler V3 liquidity bootstrapping protocol with advanced Chainlink automation for intelligent token launching and liquidity management. Built on Base network, SafeLynx provides a secure, efficient, and user-friendly environment for token creators and liquidity providers.
+SafeLynx is a comprehensive DeFi platform that combines the power of Doppler V3 liquidity bootstrapping protocol with advanced Chainlink Toolkits for intelligent token launching and liquidity management. Built on Base network, SafeLynx provides a secure, efficient, and user-friendly environment for token creators and liquidity providers.
 
 ### 🌟 Key Features
 
 - **🚀 Smart Token Launching**: Automated token deployment with Doppler V3 protocol
-- **🤖 AI-Powered Liquidity Management**: Chainlink automation for intelligent pool management
+- **🤖 Liquidity Management**: Chainlink automation for intelligent pool management
 - **📊 Real-time Analytics**: Advanced charts and market insights
 - **🔒 Security First**: Multi-layer security with automated risk management
 - **⚡ High Performance**: Built on Base network for fast and cost-effective transactions
