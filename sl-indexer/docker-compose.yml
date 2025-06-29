@@ -1,5 +1,5 @@
 services:
-  doppler-indexer-database:
+  safelynx-indexer-database:
     image: postgres:16.6
     environment:
       # Database credentials
@@ -37,18 +37,18 @@ services:
       retries: 5
     restart: unless-stopped
 
-  doppler-indexer-app:
+  safelynx-indexer-app:
     build: .
     ports:
       - "42069:42069"
     command: yarn dev
     depends_on:
-      doppler-indexer-database:
+      safelynx-indexer-database:
         condition: service_healthy
     env_file:
       - .env.local
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@doppler-indexer-database:5432/default
+      - DATABASE_URL=postgresql://postgres:postgres@safelynx-indexer-database:5432/default
       - PONDER_RPC_URL_84532=https://sepolia.base.org
       - PONDER_RPC_URL_1=https://eth.llamarpc.com
     restart: unless-stopped

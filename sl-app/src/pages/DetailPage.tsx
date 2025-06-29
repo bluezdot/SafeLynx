@@ -24,7 +24,7 @@ import TokenInfoCard from '@/pages/details/TokenInfoCard';
 import TradingInterfaceCard, { TokenBalance } from '@/pages/details/TradingInterfaceCard';
 import PriceChallengeCard from '@/pages/details/PriceChallengeCard';
 
-function ViewDoppler() {
+function DetailPage() {
   const { id } = useParams();
   const account = useAccount();
   const { data: walletClient } = useWalletClient(account);
@@ -463,4 +463,4 @@ const SwapInput = ({
   </div>
 );
 
-export default ViewDoppler;
+export default DetailPage;

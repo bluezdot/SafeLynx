@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Doppler V3 Indexer - a multi-chain blockchain indexing service built with [Ponder](https://ponder.sh/) that indexes Uniswap V2, V3, and V4 protocol events across Ethereum mainnet, Base, Unichain, and Ink chains.
+This is the Indexer - a multi-chain blockchain indexing service built with [Ponder](https://ponder.sh/) that indexes Uniswap V2, V3, and V4 protocol events across Ethereum mainnet, Base, Unichain, and Ink chains.
 
 ## Essential Commands
 

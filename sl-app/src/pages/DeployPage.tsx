@@ -20,7 +20,7 @@ function roundToTickSpacing(tick: number): number {
   return Math.round(tick / TICK_SPACING) * TICK_SPACING;
 }
 
-function DeployDoppler() {
+function DeployPage() {
   const account = useAccount();
   const { data: walletClient } = useWalletClient(account);
   const { connectors, connect } = useConnect();
@@ -308,4 +308,4 @@ function DeployDoppler() {
   );
 }
 
-export default DeployDoppler;
+export default DeployPage;

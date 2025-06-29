@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 // todo: progess bar
 
-export default function HomeScreen() {
+export default function HomePage() {
   const navigate = useNavigate();
 
   const {
@@ -37,7 +37,7 @@ export default function HomeScreen() {
   }));
 
   const handleViewPool = (poolAddress: string) => {
-    navigate(`/doppler-v2/${poolAddress}`);
+    navigate(`/view-detail/${poolAddress}`);
   };
 
   return (

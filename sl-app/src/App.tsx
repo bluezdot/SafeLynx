@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useAccount, useConnect, useBalance, useSwitchChain, useDisconnect } from 'wagmi';
-import DeployDoppler from './pages/DeployDoppler';
-import ViewDoppler from './pages/ViewDoppler';
-import HomeScreen from './pages/HomeScreen';
+import DeployPage from './pages/DeployPage';
+import DetailPage from './pages/DetailPage';
+import HomePage from './pages/HomePage';
 import { Button } from '@/components/ui/button';
 import './theme.css';
 
@@ -98,9 +98,9 @@ function App() {
 
         <main>
           <Routes>
-            <Route path='/' element={<HomeScreen />} />
-            <Route path='/deploy' element={<DeployDoppler />} />
-            <Route path='/doppler-v2/:id' element={<ViewDoppler />} />
+            <Route path='/' element={<HomePage />} />
+            <Route path='/deploy' element={<DeployPage />} />
+            <Route path='/view-detail/:id' element={<DetailPage />} />
           </Routes>
         </main>
       </div>
