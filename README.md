@@ -282,7 +282,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🏆 Hackathon Submission
 
-This project was built for **Chromion: A Chainlink Hackathon** with the goal of revolutionizing DeFi token launching and liquidity management. We believe in the power of decentralized finance to democratize access to financial services and create more inclusive economic systems.
+This project was built for **Chromion: A Chainlink Hackathon 2025** with the goal of revolutionizing DeFi token launching and liquidity management. We believe in the power of decentralized finance to democratize access to financial services and create more inclusive economic systems.
 
 ### 🎯 Problem Statement
 
