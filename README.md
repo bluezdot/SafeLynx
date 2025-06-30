@@ -9,7 +9,11 @@
 
 ## 🎯 Project Overview
 
-SafeLynx is a comprehensive DeFi platform that combines the power of Doppler V3 liquidity bootstrapping protocol with advanced Chainlink Toolkits for intelligent token launching and liquidity management. Built on Base network, SafeLynx provides a secure, efficient, and user-friendly environment for token creators and liquidity providers.
+SafeLynx is a comprehensive DeFi platform that combines the power of Doppler V3 liquidity bootstrapping protocol with advanced Chainlink Toolkits for intelligent token launching and risk management. Built on Base network, SafeLynx provides a secure, efficient, and user-friendly environment for token creators and liquidity providers. By embedding fairness, transparency, and protection at the protocol level, we’re building a launch framework where:
+
+- Creators earn success by proving traction
+- Users participate without fear of losing everything
+- Market integrity is protected, not exploited
 
 ### 🌟 Key Features
 
@@ -282,7 +286,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🏆 Hackathon Submission
 
-This project was built for **Chromion: A Chainlink Hackathon 2025** with the goal of revolutionizing DeFi token launching and liquidity management. We believe in the power of decentralized finance to democratize access to financial services and create more inclusive economic systems.
+This project was built for **Chromion: A Chainlink Hackathon 2025** with the goal of revolutionizing DeFi token launching, liquidity and risk management. We believe in the power of decentralized finance to democratize access to financial services and create more inclusive economic systems.
 
 ### 🎯 Problem Statement
 
@@ -291,6 +295,8 @@ Traditional token launching is fraught with challenges:
 - Lack of automated risk management
 - Poor user experience
 - Centralized control and manipulation
+- High probability of rug-pull
+- High risk of losing funds
 
 ### 💡 Our Solution
 
@@ -299,10 +305,13 @@ SafeLynx addresses these challenges by:
 - Implementing Chainlink automation for intelligent risk management
 - Providing intuitive UI/UX for seamless token operations
 - Ensuring decentralization and transparency
+- Applying price challenge to guarantee profits
+- Providing claimable refunds
 
 ### 🚀 Future Roadmap
 
 - [ ] Cross-chain liquidity bridges
+- [ ] Bubblemaps and Rugcheck integration
 - [ ] Advanced AI-powered analytics
 - [ ] Mobile application
 - [ ] DAO governance integration
