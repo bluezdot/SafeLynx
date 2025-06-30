@@ -9,7 +9,7 @@
 
 ## 🎯 Project Overview
 
-SafeLynx is a comprehensive DeFi platform that combines the power of Doppler V3 liquidity bootstrapping protocol with advanced Chainlink Toolkits for intelligent token launching and risk management. Built on Base network, SafeLynx provides a secure, efficient, and user-friendly environment for token creators and liquidity providers. By embedding fairness, transparency, and protection at the protocol level, we’re building a launch framework where:
+SafeLynx is a comprehensive launchpad that combines the power of Doppler V3 liquidity bootstrapping protocol with advanced Chainlink Toolkits for intelligent token launching and risk management. Built on Base network, SafeLynx provides a secure, efficient, and user-friendly environment for token creators and liquidity providers. By embedding fairness, transparency, and protection at the protocol level, we’re building a launchpad where:
 
 - Creators earn success by proving traction
 - Users participate without fear of losing everything
