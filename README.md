@@ -277,7 +277,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact & Support
 
 - **Website**: [https://safelynx.xyz](https://safelynx.xyz)
-- **Documentation**: Coming soon...
+- **Documentation**: [https://safelynx.xyz]([https://safelynx.xyz](https://www.notion.so/Hackathon-SafeLynX-21b87a3971668080ba8efde192c504ac))
 - **Twitter**: [@SafeLynx_xyz](https://x.com/SafeLynx_xyz)
 
 ## 🏆 Hackathon Submission
