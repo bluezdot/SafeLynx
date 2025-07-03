@@ -281,7 +281,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact & Support
 
 - **Website**: [https://safelynx.xyz](https://safelynx.xyz)
-- **Documentation**: [https://safelynx.xyz](https://www.notion.so/Hackathon-SafeLynX-21b87a3971668080ba8efde192c504ac)
+- **Documentation**: [Draft Documentation](https://www.notion.so/Hackathon-SafeLynX-21b87a3971668080ba8efde192c504ac)
 - **Twitter**: [@SafeLynx_xyz](https://x.com/SafeLynx_xyz)
 
 ## 🏆 Hackathon Submission
@@ -316,7 +316,3 @@ SafeLynx addresses these challenges by:
 - [ ] Mobile application
 - [ ] DAO governance integration
 - [ ] Institutional-grade features
-
----
-
-**Built with ❤️ for the DeFi community**
