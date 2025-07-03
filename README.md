@@ -15,6 +15,12 @@ SafeLynx is a comprehensive launchpad that combines the power of Doppler V3 liqu
 - Users participate without fear of losing everything
 - Market integrity is protected, not exploited
 
+## 🔄 Flow Overview
+
+![SafeLynx Flow](flow.png)
+
+SafeLynx implements a sophisticated anti-rug mechanism through a bonding curve system with automated price challenges. The flow begins when a creator deploys a token and initializes the bonding curve, allowing users to participate in the token launch. After the bonding period ends, Chainlink Automation monitors a 30-minute window before triggering a price challenge that compares the current market price against the bonding average. If the price challenge succeeds (≥1.5x bonding average), tokens are unlocked for users and rewards are distributed to creators. If the challenge fails, an automated refund process is triggered, protecting users from potential losses.
+
 ### 🌟 Key Features
 
 - **🚀 Smart Token Launching**: Automated token deployment with Doppler V3 protocol
