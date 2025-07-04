@@ -185,15 +185,6 @@ yarn deploy
 
 [//]: # (   - Confirm transactions)
 
-[//]: # ()
-[//]: # (3. **Manage Liquidity**)
-
-[//]: # (   - Add/remove liquidity)
-
-[//]: # (   - Monitor positions)
-
-[//]: # (   - View rewards)
-
 ## 🔧 Development
 
 ### Project Structure
